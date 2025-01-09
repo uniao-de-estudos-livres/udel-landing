@@ -32,7 +32,6 @@ jobs:
       - name: Build with Next.js 🏗️
         run: |
           npx next build
-          npx next export
 
 
       - name: Upload artifact 📡
