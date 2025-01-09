@@ -94,10 +94,13 @@ function App() {
             </div>
           </div>
         </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-purple-900/20 to-black pointer-events-none" />
         <div className={`absolute bottom-10 left-1/2 transform -translate-x-1/2 transition-opacity duration-300 ${scrolled ? 'opacity-0' : 'opacity-100'}`}>
           <ChevronDown className="w-10 h-10 text-purple-400 animate-bounce" />
         </div>
       </header>
+
+
 
       {/* Features Section */}
       <section className="py-20 relative">
@@ -277,5 +280,3 @@ function App() {
 }
 
 export default App;
-
-
