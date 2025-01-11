@@ -8,7 +8,6 @@ import { AuthForm } from "@/components/AuthForm"
 export default function SignupPage() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    // Implementar lógica de cadastro aqui
     console.log("'Cadastro submetido'")
   }
 

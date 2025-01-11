@@ -51,6 +51,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-black text-white">
+
       {/* Hero Section */}
       <header className="relative h-screen flex items-center overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
@@ -65,7 +66,7 @@ function App() {
                 Transforme sua jornada educacional com uma plataforma que combina colaboração, gamificação e inovação para um aprendizado mais eficiente e envolvente.
               </p>
               <div className="flex gap-4">
-                <Link href="/signup" passHref>
+                <Link href="#" passHref>
                   <button className="bg-purple-600 text-white px-8 py-3 rounded-lg font-semibold flex items-center gap-2 hover:bg-purple-700 transition-colors shadow-[0_0_15px_rgba(128,0,128,0.3)] hover:shadow-[0_0_30px_rgba(128,0,128,0.5)]">
                     Começar Agora <ArrowRight className="w-5 h-5" />
                   </button>
@@ -107,9 +108,9 @@ function App() {
         <div className="absolute inset-0 bg-gradient-to-b from-purple-900/30 to-black pointer-events-none" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-white mb-4">Recursos Inovadores do Udel</h2>
+            <h2 className="text-4xl font-bold text-white mb-4">Recursos Inovadores da Udel</h2>
             <p className="text-xl text-zinc-400 max-w-3xl mx-auto">
-              Descubra como o Udel transforma sua experiência de aprendizado com recursos únicos e envolventes
+              Descubra como a Udel transforma sua experiência de aprendizado com recursos únicos e envolventes
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -197,19 +198,19 @@ function App() {
               <BookOpen className="w-12 h-12 text-purple-400 mb-4" />
               <h3 className="text-xl font-bold mb-2 text-white">Clube de Literatura</h3>
               <p className="text-zinc-400 mb-4">Discussões semanais sobre obras clássicas e contemporâneas</p>
-              <span className="text-sm text-purple-400">32 membros ativos</span>
+              <span hidden className="text-sm text-purple-400">32 membros ativos</span>
             </div>
             <div className="bg-zinc-900/80 backdrop-blur-sm p-6 rounded-xl border border-purple-500/20 shadow-[0_0_15px_rgba(128,0,128,0.1)] hover:shadow-[0_0_30px_rgba(128,0,128,0.2)] transition-all duration-300">
               <Target className="w-12 h-12 text-purple-400 mb-4" />
               <h3 className="text-xl font-bold mb-2 text-white">Clube de Matemática</h3>
               <p className="text-zinc-400 mb-4">Resolução de problemas e preparação para olimpíadas</p>
-              <span className="text-sm text-purple-400">45 membros ativos</span>
+              <span hidden className="text-sm text-purple-400">45 membros ativos</span>
             </div>
             <div className="bg-zinc-900/80 backdrop-blur-sm p-6 rounded-xl border border-purple-500/20 shadow-[0_0_15px_rgba(128,0,128,0.1)] hover:shadow-[0_0_30px_rgba(128,0,128,0.2)] transition-all duration-300">
               <Star className="w-12 h-12 text-purple-400 mb-4" />
               <h3 className="text-xl font-bold mb-2 text-white">Clube de Ciências</h3>
               <p className="text-zinc-400 mb-4">Experimentos práticos e discussões científicas</p>
-              <span className="text-sm text-purple-400">28 membros ativos</span>
+              <span hidden className="text-sm text-purple-400">28 membros ativos</span>
             </div>
           </div>
         </div>
@@ -226,7 +227,7 @@ function App() {
           <p className="text-xl text-zinc-400 mb-8 max-w-2xl mx-auto">
             Junte-se a nossa comunidade de estudantes e transforme sua forma de aprender.
           </p>
-          <Link href="/signup" passHref>
+          <Link href="#" passHref>
             <button className="bg-purple-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-purple-700 transition-colors shadow-[0_0_15px_rgba(128,0,128,0.3)] hover:shadow-[0_0_30px_rgba(128,0,128,0.5)]">
               Criar Conta Grátis
             </button>
