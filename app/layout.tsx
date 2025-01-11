@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    url: "https://udel.com",
+    url: "https://udel.study",
     title: "Udel - uma nova forma de estudar",
     description: "Transforme seus estudos em uma jornada emocionante! Nosso site combina aprendizado e gamificação, oferecendo desafios interativos, conquistas e recompensas para tornar o estudo mais motivador e eficiente. Explore conteúdos, suba de nível e domine novos conhecimentos de forma divertida!",
     images: [
