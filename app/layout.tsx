@@ -10,7 +10,7 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   title: "Udel - uma nova forma de estudar",
-  description: "Vem com a gente",
+  description: "Transforme seus estudos em uma jornada emocionante! Nosso site combina aprendizado e gamificação, oferecendo desafios interativos, conquistas e recompensas para tornar o estudo mais motivador e eficiente. Explore conteúdos, suba de nível e domine novos conhecimentos de forma divertida!",
   icons: [
     {
       url: "../static/udel-black.svg"
@@ -18,18 +18,18 @@ export const metadata: Metadata = {
   ],
   twitter: {
     title: "Udel - uma nova forma de estudar",
-    description: "Vem com a gente",
+    description: "Transforme seus estudos em uma jornada emocionante! Nosso site combina aprendizado e gamificação, oferecendo desafios interativos, conquistas e recompensas para tornar o estudo mais motivador e eficiente. Explore conteúdos, suba de nível e domine novos conhecimentos de forma divertida!",
     creator: "@astahjmo",
-    images: ["../static/udel-black.svg"],
+    images: ["../static/udel_-_natal.png"],
     card: "summary_large_image"
   },
   openGraph: {
     type: "website",
-    url: 'https://udel.com',
-    title: 'Udel - uma nova forma de estudar',
-    description: 'Vem com a gente',
+    url: "https://udel.com",
+    title: "Udel - uma nova forma de estudar",
+    description: "Transforme seus estudos em uma jornada emocionante! Nosso site combina aprendizado e gamificação, oferecendo desafios interativos, conquistas e recompensas para tornar o estudo mais motivador e eficiente. Explore conteúdos, suba de nível e domine novos conhecimentos de forma divertida!",
     images: [
-      "../static/udel-black.svg"
+      "../static/udel_-_natal.png"
     ],
   }
 };
