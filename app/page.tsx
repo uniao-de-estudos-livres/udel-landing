@@ -58,27 +58,27 @@ function App() {
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             {/* Text Content */}
             <div className="text-left">
-              <h1 className="text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-purple-400 mb-6">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-purple-400 mb-6">
                 Udel: Unindo
                 <span className="text-purple-400"> Desenvolvimento e Evolução na Aprendizagem</span>
               </h1>
-              <p className="text-xl text-zinc-400 mb-8">
+              <p className="text-xl sm:tex-xl text-zinc-400 mb-8">
                 Transforme sua jornada educacional com uma plataforma que combina colaboração, gamificação e inovação para um aprendizado mais eficiente e envolvente.
               </p>
-              <div className="flex gap-4">
+              <div className="flex flex-col sm:flex-row gap-4">
                 <Link href="#" passHref>
-                  <button className="bg-purple-600 text-white px-8 py-3 rounded-lg font-semibold flex items-center gap-2 hover:bg-purple-700 transition-colors shadow-[0_0_15px_rgba(128,0,128,0.3)] hover:shadow-[0_0_30px_rgba(128,0,128,0.5)]">
+                  <button className="w-full justify-center sm:w-auto bg-purple-600 text-white px-8 py-3 rounded-lg font-semibold flex items-center gap-2 hover:bg-purple-700 transition-colors shadow-[0_0_15px_rgba(128,0,128,0.3)] hover:shadow-[0_0_30px_rgba(128,0,128,0.5)]">
                     Começar Agora <ArrowRight className="w-5 h-5" />
                   </button>
                 </Link>
-                <button className="border border-purple-500 text-purple-400 px-8 py-3 rounded-lg font-semibold hover:bg-purple-500/10 transition-all">
+                <button className="w-full sm:w-auto border border-purple-500 text-purple-400 px-8 py-3 rounded-lg font-semibold hover:bg-purple-500/10 transition-all">
                   Conhecer Mais
                 </button>
               </div>
             </div>
             {/* Logo */}
             <div className="flex justify-center lg:justify-end">
-              <svg width="400" height="400" viewBox="0 0 311 259" className="animate-pulse" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg width="100%" height="100%" viewBox="0 0 311 259" className="animate-pulse w-full max-w-[200px] sm:max-w-[300px] lg:max-w-[400px]" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M196.58 208.5H88.0798C88.0798 208.5 81.5798 209.5 73.0798 217C64.5798 224.5 59.5799 229.5 59.5799 229.5L29.0799 258.5C29.0799 258.5 18.5801 257 8.58007 245.5C-1.41993 234 0.0798517 214.5 0.0798517 214.5C0.0798517 214.5 3.58007 189.5 5.08007 183.5C6.58007 177.5 13.5801 154 13.5801 154C13.5801 154 28.9548 111 32.0801 106C35.2054 101 37.0801 97.5 56.5801 87C76.0801 76.5 81.0801 77.5 89.0801 76C97.0801 74.5 178.08 73.5005 194.58 75.5003C201.811 76.3767 215.843 80.7896 227.08 87.0001C241.484 94.9609 249.58 100.5 252.58 105C255.58 109.5 258.58 113 264.58 132C270.58 151 274.08 161.5 274.08 161.5C274.08 161.5 278.58 177 281.08 187.5C283.58 198 285.08 203.001 284.58 214.5C284.08 226 281.58 239 276.58 246C271.58 253 257.58 259.5 255.58 258.5C253.58 257.501 226.08 229.5 226.08 229.5C226.08 229.5 220.08 223 211.58 217C203.08 211 196.58 208.5 196.58 208.5Z" fill="#ffffff" />
                 <path d="M243.58 140C243.58 161.263 226.343 178.5 205.08 178.5C183.817 178.5 166.58 161.263 166.58 140C166.58 118.737 183.817 101.5 205.08 101.5C226.343 101.5 243.58 118.737 243.58 140Z" fill="#333333" />
                 <path d="M117.58 140C117.58 161.263 100.343 178.5 79.0801 178.5C57.8171 178.5 40.5801 161.263 40.5801 140C40.5801 118.737 57.8171 101.5 79.0801 101.5C100.343 101.5 117.58 118.737 117.58 140Z" fill="#333333" />
