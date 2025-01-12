@@ -39,6 +39,7 @@ function FeatureCard({ icon: Icon, title, description, details }: {
 
 function App() {
   const [scrolled, setScrolled] = useState(false);
+  const discord_link = "https://discord.com/invite/f282KUYmWk"
 
   useEffect(() => {
     const handleScroll = () => {
@@ -48,6 +49,10 @@ function App() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleOnClick = () => {
+    window.open(discord_link)
+  }
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -68,11 +73,11 @@ function App() {
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link href="#" passHref>
                   <button className="w-full justify-center sm:w-auto bg-purple-600 text-white px-8 py-3 rounded-lg font-semibold flex items-center gap-2 hover:bg-purple-700 transition-colors shadow-[0_0_15px_rgba(128,0,128,0.3)] hover:shadow-[0_0_30px_rgba(128,0,128,0.5)]">
-                    Começar Agora <ArrowRight className="w-5 h-5" />
+                    NEW GAME <ArrowRight className="w-5 h-5" />
                   </button>
                 </Link>
-                <button className="w-full sm:w-auto border border-purple-500 text-purple-400 px-8 py-3 rounded-lg font-semibold hover:bg-purple-500/10 transition-all">
-                  Conhecer Mais
+                <button onClick={handleOnClick} className="w-full sm:w-auto border border-purple-500 text-purple-400 px-8 py-3 rounded-lg font-semibold hover:bg-purple-500/10 transition-all">
+                  Conhecer mais
                 </button>
               </div>
             </div>
@@ -99,12 +104,12 @@ function App() {
         <div className={`absolute bottom-10 left-1/2 transform -translate-x-1/2 transition-opacity duration-300 ${scrolled ? 'opacity-0' : 'opacity-100'}`}>
           <ChevronDown className="w-10 h-10 text-purple-400 animate-bounce" />
         </div>
-      </header>
+      </header >
 
 
 
       {/* Features Section */}
-      <section className="py-20 relative">
+      < section className="py-20 relative" >
         <div className="absolute inset-0 bg-gradient-to-b from-purple-900/30 to-black pointer-events-none" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
@@ -182,10 +187,10 @@ function App() {
             />
           </div>
         </div>
-      </section>
+      </section >
 
       {/* Clubs Section */}
-      <section className="py-16 bg-zinc-900/50 backdrop-blur-sm border-t border-b border-purple-500/20">
+      < section className="py-16 bg-zinc-900/50 backdrop-blur-sm border-t border-b border-purple-500/20" >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-white mb-4">Clubes de Estudo</h2>
@@ -214,10 +219,10 @@ function App() {
             </div>
           </div>
         </div>
-      </section>
+      </section >
 
       {/* CTA Section */}
-      <section className="py-16 relative overflow-hidden">
+      < section className="py-16 relative overflow-hidden" >
         <div className="absolute inset-0 bg-gradient-to-b from-purple-900/30 to-black pointer-events-none" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <Medal className="w-16 h-16 text-purple-400 mx-auto mb-6" />
@@ -233,10 +238,10 @@ function App() {
             </button>
           </Link>
         </div>
-      </section>
+      </section >
 
       {/* Footer */}
-      <footer className="bg-zinc-950/80 backdrop-blur-sm text-zinc-400 py-12 border-t border-purple-500/20">
+      < footer className="bg-zinc-950/80 backdrop-blur-sm text-zinc-400 py-12 border-t border-purple-500/20" >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div>
@@ -275,8 +280,8 @@ function App() {
             © {new Date().getFullYear()} Udel - Unindo Desenvolvimento e Evolução na Aprendizagem. Todos os direitos reservados.
           </div>
         </div>
-      </footer>
-    </div>
+      </footer >
+    </div >
   );
 }
 
