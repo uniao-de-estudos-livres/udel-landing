@@ -8,14 +8,14 @@ export const metadata: Metadata = {
   description: "Transforme seus estudos em uma jornada emocionante! Nosso site combina aprendizado e gamificação, oferecendo desafios interativos, conquistas e recompensas para tornar o estudo mais motivador e eficiente. Explore conteúdos, suba de nível e domine novos conhecimentos de forma divertida!",
   icons: [
     {
-      url: "../static/udel-white.svg"
+      url: "../public/udel-white.svg"
     }
   ],
   twitter: {
     title: "Udel - uma nova forma de estudar",
     description: "Transforme seus estudos em uma jornada emocionante! Nosso site combina aprendizado e gamificação, oferecendo desafios interativos, conquistas e recompensas para tornar o estudo mais motivador e eficiente. Explore conteúdos, suba de nível e domine novos conhecimentos de forma divertida!",
     creator: "@astahjmo",
-    images: ["../static/udel_-_natal.png"],
+    images: ["../public/udel_-_natal.png"],
     card: "summary_large_image"
   },
   openGraph: {
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     title: "Udel - uma nova forma de estudar",
     description: "Transforme seus estudos em uma jornada emocionante! Nosso site combina aprendizado e gamificação, oferecendo desafios interativos, conquistas e recompensas para tornar o estudo mais motivador e eficiente. Explore conteúdos, suba de nível e domine novos conhecimentos de forma divertida!",
     images: [
-      "../static/udel_-_natal.png"
+      "../public/udel_-_natal.png"
     ],
   }
 };
