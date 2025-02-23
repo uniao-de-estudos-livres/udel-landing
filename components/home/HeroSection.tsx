@@ -39,7 +39,7 @@ export function HeroSection() {
                     </div>
                     {/* Logo */}
                     <div className="flex justify-center lg:justify-end">
-                        <Logo variant="white" />
+                        <Logo variant="white" className='w-full max-w-[200px] sm:max-w-[300px] lg:max-w-[400px]"' />
                     </div>
                 </div>
             </div>
