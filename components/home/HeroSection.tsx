@@ -27,7 +27,7 @@ export function HeroSection() {
                             Transforme sua jornada educacional com uma plataforma que combina colaboração, gamificação e inovação para um aprendizado mais eficiente e envolvente.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4">
-                            <Link href="/signup" passHref>
+                            <Link href="#" passHref>
                                 <button className="w-full justify-center sm:w-auto bg-purple-600 text-white px-8 py-3 rounded-lg font-semibold flex items-center gap-2 hover:bg-purple-700 transition-colors shadow-[0_0_15px_rgba(128,0,128,0.3)] hover:shadow-[0_0_30px_rgba(128,0,128,0.5)]">
                                     NEW GAME <ArrowRight className="w-5 h-5" />
                                 </button>
