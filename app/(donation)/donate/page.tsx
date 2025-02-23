@@ -8,16 +8,7 @@ import { Footer } from '@/components/donation/Footer';
 import { BarChart3, GiftIcon, SparkleIcon, TrophyIcon } from 'lucide-react';
 
 const recentSupporters: Supporter[] = [
-    { name: "Maria Silva", amount: 150, message: "Adorei fazer parte desta comunidade incrível!", date: "2024-03-15", tier: "Lendário" },
-    { name: "João Santos", amount: 50, message: "Continuem com o ótimo trabalho!", date: "2024-03-15", tier: "Entusiasta" },
-    { name: "Ana Costa", amount: 200, message: "Feliz em poder contribuir com a comunidade!", date: "2024-03-14", tier: "Lendário" },
-    { name: "Pedro Oliveira", amount: 25, message: "Ótima iniciativa!", date: "2024-03-14", tier: "Apoiador" },
-    { name: "Lucas Mendes", amount: 100, message: "Parabéns pelo projeto!", date: "2024-03-13", tier: "Entusiasta" },
-    { name: "Carla Souza", amount: 300, message: "Investindo no futuro da educação!", date: "2024-03-13", tier: "Lendário" },
-    { name: "Roberto Alves", amount: 15, message: "Pequena contribuição para um grande projeto!", date: "2024-03-12", tier: "Apoiador" },
-    { name: "Fernanda Lima", amount: 75, message: "Adorando os novos recursos!", date: "2024-03-12", tier: "Entusiasta" },
-    { name: "Gabriel Santos", amount: 500, message: "Acreditando no potencial da plataforma!", date: "2024-03-11", tier: "Lendário" },
-    { name: "Juliana Costa", amount: 20, message: "Feliz em ajudar!", date: "2024-03-11", tier: "Apoiador" }
+    { name: "Astaroth", amount: 600, message: "Confio nesse projeto e quero que ele cresça ainda mais!", date: "2024-03-15", tier: "Lendário" },
 ];
 
 function App() {
