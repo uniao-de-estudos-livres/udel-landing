@@ -7,6 +7,7 @@ import { ClubsSection } from '@/components/home/ClubeSection';
 import { SupportersTable, Supporter } from '@/components/donation/SupportersTable';
 import { Footer } from '@/components/home/Footer';
 import { NewsItem, NewsUpdates } from '@/components/home/NewsUpdates';
+import { InviteSection } from '@/components/home/Invite';
 
 const recentSupporters: Supporter[] = [
   { name: "Maria Silva", amount: 150, message: "Adorei fazer parte desta comunidade incrível!", date: "2024-03-15", tier: "Lendário" },
@@ -69,6 +70,7 @@ function App() {
           />
         </div>
       </section> */}
+      <InviteSection/>
       <Footer />
     </div>
   );
