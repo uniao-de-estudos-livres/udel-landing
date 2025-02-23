@@ -1,0 +1,6 @@
+{
+    "debug.javascript.defaultRuntimeExecutable": {
+        "pwa-node": "/home/astaroth/.local/share/mise/shims/node"
+    },
+    "python.defaultInterpreterPath": "/home/astaroth/.local/share/mise/installs/python/3.12.9/bin/python"
+}
