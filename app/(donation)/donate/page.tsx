@@ -32,10 +32,10 @@ function App() {
                         </p>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-                        <TransparencyCard title="Infraestrutura" value="R$ 2.450,00" description="Custos mensais com servidores, banco de dados e CDN" />
-                        <TransparencyCard title="Eventos" value="R$ 1.800,00" description="Investimento em hackathons e encontros da comunidade" />
-                        <TransparencyCard title="Apoiadores" value="312" description="Número de pessoas que apoiam mensalmente" />
-                        <TransparencyCard title="Doações Totais" value="R$ 4.850,00" description="Total arrecadado no último mês" />
+                        <TransparencyCard title="Infraestrutura" value="R$150,00" description="Custos mensais com servidores, banco de dados e CDN" />
+                        <TransparencyCard title="Eventos" value="R$0" description="Investimento em hackathons e encontros da comunidade" />
+                        <TransparencyCard title="Apoiadores" value="2" description="Número de pessoas que apoiam mensalmente" />
+                        <TransparencyCard title="Doações Totais" value="R$0" description="Total arrecadado no último mês" />
                     </div>
                     <div className="text-center">
                         <a href="#" className="text-purple-400 hover:text-purple-300 transition-colors inline-flex items-center gap-2">
