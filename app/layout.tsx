@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     title: "Udel - uma nova forma de estudar",
     description: "Transforme seus estudos em uma jornada emocionante! Nosso site combina aprendizado e gamificação, oferecendo desafios interativos, conquistas e recompensas para tornar o estudo mais motivador e eficiente. Explore conteúdos, suba de nível e domine novos conhecimentos de forma divertida!",
     creator: "@astahjmo",
-    images: ["../static/udel_-_natal.png"],
+    images: ["../static/Udel_Banner.png"],
     card: "summary_large_image"
   },
   openGraph: {
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     title: "Udel - uma nova forma de estudar",
     description: "Transforme seus estudos em uma jornada emocionante! Nosso site combina aprendizado e gamificação, oferecendo desafios interativos, conquistas e recompensas para tornar o estudo mais motivador e eficiente. Explore conteúdos, suba de nível e domine novos conhecimentos de forma divertida!",
     images: [
-      "../static/udel_-_natal.png"
+      "../static/Udel_Banner.png"
     ],
   }
 };
