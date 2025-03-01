@@ -17,9 +17,6 @@ export function VerificationCodeInput({ onComplete }: VerificationCodeInputProps
   }, [])
 
   const handleChange = (index: number, value: string) => {
-    if (value.length > 1) {
-      value = value.slice(-1)
-    }
     const newCode = [...code]
     newCode[index] = value
     setCode(newCode)
@@ -30,6 +27,8 @@ export function VerificationCodeInput({ onComplete }: VerificationCodeInputProps
 
     if (newCode.every((digit) => digit !== "")) {
       onComplete(newCode.join(""))
+      console.log(newCode)
+      console.log()
     }
   }
 

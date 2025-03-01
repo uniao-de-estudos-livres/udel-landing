@@ -1,5 +1,6 @@
 "use client"
 
+import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -18,6 +19,7 @@ export function SignupForm() {
   const [isLoading, setIsLoading] = useState(true)
   const router = useRouter()
   const notification = useNotification()
+  const [Token, setToken] = useState()
 
   const form = useForm<SignupCompleteFormData>({
     resolver: zodResolver(signupCompleteSchema),
@@ -122,7 +124,7 @@ export function SignupForm() {
       </div>
 
       <div className="grid gap-2">
-        <SocialButton icon={Discord} onClick={() => {}} isLoading={isLoading}>
+        <SocialButton icon={Discord} onClick={() => { }} isLoading={isLoading}>
           Discord
         </SocialButton>
         <SocialButton
@@ -146,7 +148,7 @@ export function SignupForm() {
               />
             </svg>
           )}
-          onClick={() => {}}
+          onClick={() => { }}
           isLoading={isLoading}
         >
           Google

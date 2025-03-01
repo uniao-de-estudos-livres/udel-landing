@@ -21,6 +21,13 @@ export const signupVerificationSchema = z.object({
   }),
 })
 
+export const WizardSignupData = z.object({
+    email: z.string().email("Email inválido"),
+    token: z.string().min(1, ("Você precisa resolver o captcha!"))
+});
+
+export type WizardSignupSchema = z.infer<typeof WizardSignupData>
+
 export const signupCompleteSchema = z
   .object({
     nickname: z.string().min(3, {
