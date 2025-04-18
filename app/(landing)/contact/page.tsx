@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from "react"; // Import useState
+import { useState } from "react";
 import { Footer } from "@/components/landing/footer";
 // import { Header } from "@/components/landing/header";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Mail, MessageSquare, Send, Copy, Loader2 } from "lucide-react"; // Import Loader2
+import { Mail, MessageSquare, Send, Copy, Loader2 } from "lucide-react";
 import { useNotification } from "@/hooks/use-notification";
 import { AuthService } from "@/services/auth-service";
 
@@ -22,6 +22,7 @@ interface ContactFormData {
 export default function ContactPage() {
   const notification = useNotification();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const discordUrl = "https://discord.gg/NUtQEtuW"; // Updated Discord URL
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -99,7 +100,6 @@ export default function ContactPage() {
               <Label htmlFor="message" className="text-zinc-300 mb-2 block">Mensagem</Label>
               <Textarea id="message" name="message" rows={5} required disabled={isSubmitting} className="bg-zinc-900/50 border-zinc-800/50" />
             </div>
-            {/* Submit Button with Loading State */}
             <Button type="submit" className="w-full bg-purple-600 hover:bg-purple-700" disabled={isSubmitting}>
               {isSubmitting ? <Loader2 className="h-4 w-4 animate-spin" /> : <> <Send className="mr-2 h-4 w-4" /> Enviar Mensagem </>}
             </Button>
@@ -123,7 +123,8 @@ export default function ContactPage() {
               Você também pode nos encontrar em nossa comunidade no Discord. É um ótimo lugar para tirar dúvidas rápidas, interagir com outros membros e ficar por dentro das novidades.
             </p>
             <Button asChild variant="outline" className="w-full text-zinc-300 border-indigo-500/50 hover:bg-indigo-500/10 hover:border-indigo-500/80 hover:text-white transition-all">
-              <a href="https://discord.gg/udel-community" target="_blank" rel="noopener noreferrer">
+              {/* Use updated Discord URL */}
+              <a href={discordUrl} target="_blank" rel="noopener noreferrer">
                  <MessageSquare className="mr-2 h-5 w-5 text-indigo-400" /> Entrar no Discord
               </a>
             </Button>

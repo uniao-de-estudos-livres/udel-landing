@@ -3,19 +3,19 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { ArrowRight } from "lucide-react"
-import { useRouter } from "next/navigation"; // Import useRouter
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button"
 import { Logo } from "@/components/ui/logo"
 import { DiscordRedirectDialog } from "@/components/ui/discord-redirect-dialog"
 import { FeatureDevelopmentDialog } from "@/components/ui/feature-development-dialog"
-import { useNotification } from "@/components/ui/notifications"
+import { useNotification } from "@/hooks/use-notification"
 
 export function HeroSection() {
   const [isDiscordDialogOpen, setIsDiscordDialogOpen] = useState(false)
   const [isFeatureDialogOpen, setIsFeatureDialogOpen] = useState(false)
-  const router = useRouter(); // Initialize router
+  const router = useRouter();
   const notification = useNotification()
-  const discordUrl = "https://discord.gg/udel-community" // Substitua pela URL real
+  const discordUrl = "https://discord.gg/NUtQEtuW" // Updated Discord URL
 
   const handleDiscordRedirect = () => {
     window.open(discordUrl, "_blank")
@@ -23,12 +23,7 @@ export function HeroSection() {
   }
 
   const handleStartNowClick = () => {
-    // Redirect to the signup page
-    // router.push("/signup"); // Use router to navigate
-
-    // Removed logic for opening modal and showing notification
-    setIsFeatureDialogOpen(true)
-    // notification.info(...)
+    setIsFeatureDialogOpen(true);
   }
 
   return (
@@ -46,7 +41,6 @@ export function HeroSection() {
               um aprendizado mais eficiente e envolvente.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              {/* Modificado para abrir o modal em vez de redirecionar */}
               <Button
                 className="w-full sm:w-auto bg-purple-600 text-white px-8 py-3 rounded-lg font-semibold flex items-center justify-center gap-2 hover:bg-purple-700 transition-colors shadow-[0_0_15px_rgba(128,0,128,0.3)] hover:shadow-[0_0_30px_rgba(128,0,128,0.5)]"
                 onClick={handleStartNowClick}
@@ -58,7 +52,7 @@ export function HeroSection() {
                 onClick={() => setIsDiscordDialogOpen(true)}
                 className="w-full sm:w-auto border border-purple-500 text-purple-400 px-8 py-3 rounded-lg font-semibold hover:bg-purple-500/10 transition-all"
               >
-                Conhecer Mais
+                Conhecer Mais (Comunidade Discord)
               </Button>
             </div>
           </motion.div>
@@ -80,10 +74,10 @@ export function HeroSection() {
         isOpen={isDiscordDialogOpen}
         onOpenChange={setIsDiscordDialogOpen}
         onConfirm={handleDiscordRedirect}
-        discordUrl={discordUrl}
+        discordUrl={discordUrl} // Pass updated URL
       />
 
-      {/* Modal de feature em desenvolvimento (Keep the component definition but it won't be opened by this button anymore) */}
+      {/* Feature development dialog */}
       <FeatureDevelopmentDialog
         isOpen={isFeatureDialogOpen}
         onOpenChange={setIsFeatureDialogOpen}

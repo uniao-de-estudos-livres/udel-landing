@@ -15,14 +15,15 @@ interface DiscordRedirectDialogProps {
   isOpen: boolean
   onOpenChange: (open: boolean) => void
   onConfirm: () => void
-  discordUrl?: string
+  discordUrl?: string // Keep prop in case it's needed elsewhere, but use updated default
 }
 
 export function DiscordRedirectDialog({
   isOpen,
   onOpenChange,
   onConfirm,
-  discordUrl = "https://discord.gg/udel-community",
+  // Update the default value here as well
+  discordUrl = "https://discord.gg/NUtQEtuW",
 }: DiscordRedirectDialogProps) {
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
@@ -62,10 +63,9 @@ export function DiscordRedirectDialog({
           </p>
         </div>
         <DialogFooter className="flex sm:justify-between sm:flex-row flex-col gap-2">
-          {/* Apply the same styling as the other dialog's close button */}
           <Button
              variant="outline"
-             className="text-zinc-400 border-zinc-700 hover:bg-zinc-800 hover:text-white hover:border-zinc-600" // Added custom styles
+             className="text-zinc-400 border-zinc-700 hover:bg-zinc-800 hover:text-white hover:border-zinc-600"
              onClick={() => onOpenChange(false)}
            >
             Cancelar
