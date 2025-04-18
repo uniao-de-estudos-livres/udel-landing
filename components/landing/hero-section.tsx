@@ -14,6 +14,7 @@ export function HeroSection() {
   const [isDiscordDialogOpen, setIsDiscordDialogOpen] = useState(false)
   const [isFeatureDialogOpen, setIsFeatureDialogOpen] = useState(false)
   const router = useRouter();
+  const router = useRouter();
   const notification = useNotification()
   const discordUrl = "https://discord.gg/NUtQEtuW"
 
@@ -23,7 +24,6 @@ export function HeroSection() {
   }
 
   const handleStartNowClick = () => {
-    setIsFeatureDialogOpen(true);
     setIsFeatureDialogOpen(true);
   }
 
