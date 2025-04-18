@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { Footer } from "@/components/landing/footer";
-// import { Header } from "@/components/landing/header";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -11,7 +10,6 @@ import { Mail, MessageSquare, Send, Copy, Loader2 } from "lucide-react";
 import { useNotification } from "@/hooks/use-notification";
 import { AuthService } from "@/services/auth-service";
 
-// Define interface for form data
 interface ContactFormData {
     name: string;
     email: string;
@@ -22,7 +20,7 @@ interface ContactFormData {
 export default function ContactPage() {
   const notification = useNotification();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const discordUrl = "https://discord.gg/NUtQEtuW"; // Updated Discord URL
+  const discordUrl = "https://discord.gg/NUtQEtuW";
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -54,7 +52,6 @@ export default function ContactPage() {
     }
   };
 
-  // Function to copy email to clipboard
   const copyEmail = () => {
     const email = "suporte@udel.study";
     navigator.clipboard.writeText(email).then(() => {
@@ -67,7 +64,6 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      {/* <Header /> */}
       <main className="pt-24 pb-20 px-4 max-w-4xl mx-auto">
         <div className="text-center mb-16">
           <div className="inline-flex items-center justify-center p-2 bg-purple-500/10 rounded-full mb-4">
@@ -82,7 +78,6 @@ export default function ContactPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          {/* Contact Form */}
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <Label htmlFor="name" className="text-zinc-300 mb-2 block">Nome</Label>
@@ -105,7 +100,6 @@ export default function ContactPage() {
             </Button>
           </form>
 
-          {/* Contact Info / Discord */}
           <div className="space-y-6">
             <h3 className="text-2xl font-semibold text-white">Outras Formas de Contato</h3>
             <div className="bg-zinc-800/50 p-4 rounded-lg border border-zinc-700/50 space-y-2">
@@ -123,7 +117,6 @@ export default function ContactPage() {
               Você também pode nos encontrar em nossa comunidade no Discord. É um ótimo lugar para tirar dúvidas rápidas, interagir com outros membros e ficar por dentro das novidades.
             </p>
             <Button asChild variant="outline" className="w-full text-zinc-300 border-indigo-500/50 hover:bg-indigo-500/10 hover:border-indigo-500/80 hover:text-white transition-all">
-              {/* Use updated Discord URL */}
               <a href={discordUrl} target="_blank" rel="noopener noreferrer">
                  <MessageSquare className="mr-2 h-5 w-5 text-indigo-400" /> Entrar no Discord
               </a>

@@ -15,7 +15,7 @@ export function HeroSection() {
   const [isFeatureDialogOpen, setIsFeatureDialogOpen] = useState(false)
   const router = useRouter();
   const notification = useNotification()
-  const discordUrl = "https://discord.gg/NUtQEtuW" // Updated Discord URL
+  const discordUrl = "https://discord.gg/NUtQEtuW"
 
   const handleDiscordRedirect = () => {
     window.open(discordUrl, "_blank")
@@ -23,6 +23,7 @@ export function HeroSection() {
   }
 
   const handleStartNowClick = () => {
+    setIsFeatureDialogOpen(true);
     setIsFeatureDialogOpen(true);
   }
 
@@ -69,7 +70,6 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* Modal de redirecionamento para o Discord */}
       <DiscordRedirectDialog
         isOpen={isDiscordDialogOpen}
         onOpenChange={setIsDiscordDialogOpen}
@@ -77,7 +77,6 @@ export function HeroSection() {
         discordUrl={discordUrl} // Pass updated URL
       />
 
-      {/* Feature development dialog */}
       <FeatureDevelopmentDialog
         isOpen={isFeatureDialogOpen}
         onOpenChange={setIsFeatureDialogOpen}

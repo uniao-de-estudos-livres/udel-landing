@@ -9,10 +9,9 @@ import { DonationTiers } from "@/components/donations/donation-tiers"
 import { DonationFAQ } from "@/components/donations/donation-faq"
 import { TopDonors } from "@/components/donations/top-donors"
 import { Footer } from "@/components/landing/footer"
-import { AuthService } from "@/services/auth-service"; // Import AuthService
-import { Skeleton } from "@/components/ui/skeleton"; // Import Skeleton
+import { AuthService } from "@/services/auth-service";
+import { Skeleton } from "@/components/ui/skeleton";
 
-// Define type for donation stats data matching AuthService return type
 interface DonationStats {
     students_benefited?: number | null;
     monthly_donors?: number | null;
@@ -31,7 +30,11 @@ export default function DonationsPage() {
       setStatsError(null);
       try {
         const data = await AuthService.getDonationStats();
-        setStats(data);
+        if (data) {
+          setStats(data);
+        } else {
+          setStatsError("Não foi possível carregar as estatísticas.");
+        }
       } catch (err) {
         console.error("Failed to fetch donation stats:", err);
         setStatsError("Não foi possível carregar as estatísticas.");
@@ -46,14 +49,12 @@ export default function DonationsPage() {
     document.getElementById("donation-form")?.scrollIntoView({ behavior: "smooth" })
   }
 
-  // Helper to format stats, adding '+' and handling null/undefined/loading
   const formatStat = (value: number | null | undefined, suffix = '') => {
-      if (isLoadingStats) return <Skeleton className="h-10 w-24 mb-2 mx-auto" />; // Show skeleton while loading
-      if (statsError || value === null || value === undefined) return "?"; // Show placeholder on error or null data
+      if (isLoadingStats) return <Skeleton className="h-10 w-24 mb-2 mx-auto" />;
+      if (statsError || value === null || value === undefined) return "?";
       return `${value.toLocaleString('pt-BR')}${suffix}`;
   };
 
-  // Prepare stats data array using fetched data or defaults/skeletons
   const impactStatsData = [
       {
         icon: Users,
@@ -69,7 +70,7 @@ export default function DonationsPage() {
       },
       {
         icon: Award,
-        stat: isLoadingStats ? <Skeleton className="h-10 w-20 mb-2 mx-auto" /> : statsError ? "?" : "100%", // Keep 100% for transparency
+        stat: isLoadingStats ? <Skeleton className="h-10 w-20 mb-2 mx-auto" /> : statsError ? "?" : "100%",
         label: "Transparência",
         description: stats?.transparency_description || "Prestação de contas detalhada sobre o uso dos recursos",
       },
@@ -78,7 +79,6 @@ export default function DonationsPage() {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      {/* Hero Section */}
       <section className="relative py-20 overflow-hidden">
          <div className="absolute inset-0 bg-gradient-to-b from-purple-900/20 to-black pointer-events-none" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -109,7 +109,6 @@ export default function DonationsPage() {
         </div>
       </section>
 
-      {/* Impact Stats - Updated to use fetched data */}
       <section className="py-16 bg-gradient-to-b from-black to-purple-900/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -145,10 +144,8 @@ export default function DonationsPage() {
         </div>
       </section>
 
-      {/* Donation Tiers */}
       <DonationTiers selectedTier={selectedTier} setSelectedTier={setSelectedTier} />
 
-      {/* Benefits */}
       <section className="py-16 bg-gradient-to-b from-purple-900/10 to-black">
          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -194,16 +191,9 @@ export default function DonationsPage() {
         </div>
       </section>
 
-      {/* Top Donors */}
       <TopDonors />
-
-      {/* Donation Form */}
       <DonationForm selectedTier={selectedTier} />
-
-      {/* FAQ */}
       <DonationFAQ />
-
-      {/* Footer */}
       <Footer />
     </div>
   )

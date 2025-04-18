@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { Home, ArrowLeft } from 'lucide-react'
-import { Logo } from '@/components/ui/logo' // Assuming Logo component exists
+import { ArrowLeft } from 'lucide-react'
+import { Logo } from '@/components/ui/logo'
 
 export default function NotFound() {
   return (
@@ -16,19 +16,11 @@ export default function NotFound() {
         Não se preocupe, até os melhores exploradores às vezes se perdem.
       </p>
       <div className="flex flex-col sm:flex-row gap-4">
-        {/* Link para a página inicial (landing page) */}
         <Button asChild variant="outline" className="text-zinc-300 border-zinc-700 hover:bg-zinc-800 hover:text-white">
           <Link href="/">
             <ArrowLeft className="mr-2 h-4 w-4" /> Voltar à página inicial
           </Link>
         </Button>
-        {/* Opcional: Link para o dashboard se o usuário puder estar logado */}
-        {/* Você pode adicionar lógica aqui para mostrar este botão apenas se o usuário estiver autenticado */}
-        {/* <Button asChild className="bg-purple-600 hover:bg-purple-700">
-          <Link href="/dashboard">
-             <Home className="mr-2 h-4 w-4" /> Voltar ao Dashboard
-          </Link>
-        </Button> */}
       </div>
     </div>
   )

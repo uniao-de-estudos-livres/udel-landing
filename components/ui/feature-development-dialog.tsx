@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react";
-import { AlertTriangle, Send, Loader2 } from "lucide-react" // Import Loader2
+import { AlertTriangle, Send, Loader2 } from "lucide-react"
 import {
   Dialog,
   DialogContent,
@@ -26,7 +26,6 @@ interface FeatureDevelopmentDialogProps {
   featureName: string
 }
 
-// Simple email schema for validation
 const emailSchema = z.string().email({ message: "Por favor, insira um email válido." });
 
 export function FeatureDevelopmentDialog({
@@ -111,7 +110,7 @@ export function FeatureDevelopmentDialog({
           </DialogDescription>
         </DialogHeader>
 
-        {/* Waitlist Section (Re-enabled) */}
+        {/* Waitlist Section */}
         <div className="space-y-4 py-4 border-t border-b border-zinc-800/50 my-4">
            <p className="text-sm text-zinc-300">
              Quer receber um aviso quando estiver disponível? Deixe seu email abaixo!
@@ -129,7 +128,6 @@ export function FeatureDevelopmentDialog({
              />
              {emailError && <p className="text-xs text-red-500">{emailError}</p>}
            </div>
-           {/* HCaptcha Component (Re-enabled) */}
            <div className="flex justify-center">
              <HCaptchaComponent
                ref={captchaRef}

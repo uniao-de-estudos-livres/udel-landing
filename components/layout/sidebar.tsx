@@ -5,37 +5,26 @@ import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import {
   Home,
-  GraduationCap,
   BookOpen,
-  Trophy,
-  Calendar,
-  Settings,
-  BarChart2,
-  User,
-  Heart,
-  MessageSquare,
-  HelpCircle,
-  Store,
+  // GraduationCap,
+  // Trophy,
+  // Calendar,
+  // Settings,
+  // BarChart2,
+  // User,
+  // Heart,
+  // MessageSquare,
+  // HelpCircle,
+  // Store,
 } from "lucide-react"
 import { Logo } from "@/components/ui/logo"
 
-// Comment out unused navigation items
+// Only keep active navigation items
 const navigation = [
   { name: "Home", href: "/dashboard", icon: Home },
-  // { name: "Estudos", href: "/studies", icon: GraduationCap },
   { name: "Questões", href: "/questions", icon: BookOpen },
-  // { name: "Conquistas", href: "/achievements", icon: Trophy },
-  // { name: "Eventos", href: "/events", icon: Calendar },
-  // { name: "Estatísticas", href: "/statistics", icon: BarChart2 },
-  // { name: "Perfil", href: "/profile", icon: User },
-  // { name: "Loja", href: "/store", icon: Store },
-  // { name: "Doações", href: "/donations", icon: Heart },
-  // { name: "Comunidade", href: "/community", icon: MessageSquare },
-  // { name: "Ajuda", href: "/help", icon: HelpCircle },
-  // { name: "Configurações", href: "/settings", icon: Settings },
 ]
 
-// Add isVisible prop
 interface SidebarProps {
   isVisible: boolean;
 }
@@ -44,26 +33,23 @@ export function Sidebar({ isVisible }: SidebarProps) {
   const pathname = usePathname()
 
   return (
-    // Apply transition classes and conditional width/opacity/transform
     <div
       className={cn(
         "fixed inset-y-0 left-0 bg-zinc-900 border-r border-zinc-800 z-50 transition-all duration-300 ease-in-out overflow-hidden",
-        isVisible ? "w-16" : "w-0 border-r-0" // Animate width and border
+        isVisible ? "w-16" : "w-0 border-r-0"
       )}
     >
-      {/* Add opacity transition to content, match duration with width transition */}
       <div className={cn(
-          "flex flex-col items-center py-4 space-y-8 h-full transition-opacity duration-300 ease-in-out", // Changed duration to 300ms
+          "flex flex-col items-center py-4 space-y-8 h-full transition-opacity duration-300 ease-in-out",
           isVisible ? "opacity-100" : "opacity-0"
       )}>
-        <Link href="/dashboard" className="w-10 h-10 flex-shrink-0">
+        <Link href="/dashboard" className="w-10 h-10 flex-shrink-0" aria-label="Dashboard">
           <Logo variant="white" />
         </Link>
 
-        {/* Removed overflow-y-auto */}
         <nav className="flex-1 space-y-2 w-full">
           {navigation.map((item) => {
-            if (!item) return null;
+            // No need to check for item existence now
             const isActive = pathname === item.href
             return (
               <Link

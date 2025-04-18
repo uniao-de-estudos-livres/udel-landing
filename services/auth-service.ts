@@ -2,13 +2,11 @@ import { api } from "@/services/api"
 import type { LoginFormData, SignupFormData, ResetPasswordFormData } from "@/lib/schemas/auth"
 import { MockAuthService } from "@/lib/mock-auth-service";
 
-// Define a type for the final signup data payload
 interface SignupCompleteData extends Omit<SignupFormData, 'verificationCode' | 'confirmPassword'> {
   verification_proof_token: string;
   hcaptcha_token: string | null;
 }
 
-// Define type for supporter data
 interface SupporterData {
     id: string;
     name: string;
@@ -16,14 +14,12 @@ interface SupporterData {
     contribution_date: string;
 }
 
-// Define type for donation stats data
 interface DonationStats {
     students_benefited?: number | null;
     monthly_donors?: number | null;
     transparency_description?: string | null;
 }
 
-// Define type for contact form data
 interface ContactFormData {
     name: string;
     email: string;
@@ -33,7 +29,6 @@ interface ContactFormData {
 
 
 export const AuthService = {
-  // Login
   async login(data: LoginFormData, captchaToken: string | null) {
     const response = await api.post("/auth/signin/", {
       method: "classic",
@@ -54,21 +49,19 @@ export const AuthService = {
     return response.data;
   },
 
-  // --- Signup Steps ---
   async submitEmailStep(email: string, hcaptchaToken: string | null) {
     const response = await api.post("/auth/signin/email", { email: email, token: hcaptchaToken });
     return response.data;
   },
   async submitVerificationCode(email: string, code: string) {
     const response = await api.post("/auth/signin/code", { email: email, code: code });
-    return response.data;
+    return response.data; // Expects { data: { verification_proof: "..." } }
   },
   async completeSignup(data: SignupCompleteData) {
     const response = await api.post("/auth/signup/complete", data);
     return response.data;
   },
 
-  // --- Supporter Data ---
   async getSupporters(limit: number = 50): Promise<SupporterData[]> {
     try {
         const response = await api.get(`/supporters/?limit=${limit}`);
@@ -84,7 +77,6 @@ export const AuthService = {
     }
   },
 
-  // --- Donation Stats ---
   async getDonationStats(): Promise<DonationStats | null> {
     try {
         const response = await api.get(`/donations/stats`);
@@ -100,7 +92,6 @@ export const AuthService = {
     }
   },
 
-  // --- Waitlist ---
   async addToWaitlist(email: string, hcaptchaToken: string): Promise<any> {
       const response = await api.post("/waitlist/", { email, hcaptcha_token: hcaptchaToken });
       if (response.status === 201 && response.data?.status === 201) {
@@ -112,22 +103,17 @@ export const AuthService = {
       }
   },
 
-  // --- Contact Form ---
   async sendContactForm(data: ContactFormData): Promise<any> {
       const response = await api.post("/contact/", data);
-      // Check for successful status (e.g., 200 OK)
       if (response.status === 200 && response.data?.status === 200) {
-          return response.data; // Return the success response body
+          return response.data;
       } else {
-          // Throw an error based on the response or a generic one
           const errorDetail = response.data?.detail || "Failed to send contact message";
           console.error("Send contact form failed:", errorDetail);
           throw new Error(errorDetail);
       }
   },
 
-
-  // --- Other existing methods ---
   async verifyEmail(token: string) {
     const response = await api.post("/auth/verify-email", { token })
     return response.data

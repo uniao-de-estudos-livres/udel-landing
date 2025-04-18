@@ -1,9 +1,7 @@
 import { Footer } from "@/components/landing/footer";
-// import { Header } from "@/components/landing/header";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { HelpCircle } from "lucide-react";
 
-// Placeholder FAQ data
 const faqItems = [
   {
     question: "O que é a plataforma Udel?",
@@ -11,7 +9,6 @@ const faqItems = [
   },
   {
     question: "A plataforma é gratuita?",
-    // Updated answer
     answer: "Sim, a plataforma Udel é 100% gratuita e sempre será. Nosso objetivo é democratizar o acesso à educação de qualidade.",
   },
   {
@@ -31,7 +28,6 @@ const faqItems = [
 export default function FAQPage() {
   return (
     <div className="min-h-screen bg-black text-white">
-      {/* <Header /> */}
       <main className="pt-24 pb-20 px-4 max-w-4xl mx-auto">
         <div className="text-center mb-16">
            <div className="inline-flex items-center justify-center p-2 bg-purple-500/10 rounded-full mb-4">

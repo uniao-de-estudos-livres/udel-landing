@@ -1,11 +1,9 @@
 import { Footer } from "@/components/landing/footer";
-// import { Header } from "@/components/landing/header"; // Assuming Header might not exist
 import { ShieldCheck } from "lucide-react";
 
 export default function PrivacyPolicyPage() {
   return (
     <div className="min-h-screen bg-black text-white">
-      {/* <Header /> */}
       <main className="pt-24 pb-20 px-4 max-w-4xl mx-auto">
         <div className="text-center mb-12">
           <div className="inline-flex items-center justify-center p-2 bg-purple-500/10 rounded-full mb-4">

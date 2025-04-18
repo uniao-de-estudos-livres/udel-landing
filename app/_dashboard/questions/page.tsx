@@ -9,18 +9,14 @@ import {
   XCircle,
   PenLine,
   Clock,
-  Flag,
-  Bookmark,
-  Share2,
-  HelpCircle,
-  PanelLeftClose,
   EyeOff,
   ArrowLeft,
+  PanelLeftClose, // Keep PanelLeftClose for toggle button
 } from "lucide-react"
 import { useNotification } from "@/components/ui/notifications"
 import { Progress } from "@/components/ui/progress"
 import { LatexRenderer } from "@/components/LatexRender"
-import { useSidebar } from "@/contexts/SidebarContext"; // Import the context hook
+import { useSidebar } from "@/contexts/SidebarContext";
 
 type Question = {
   id: number;
@@ -34,7 +30,6 @@ type Question = {
   estimatedTime: number;
 };
 
-// ... (questions array remains the same) ...
 const questions: Question[] = [
   {
     id: 1,
@@ -82,7 +77,7 @@ const questions: Question[] = [
       "$80$ metros",
       "$100$ metros"
     ],
-    correctAnswer: 1, // Index 1 corresponds to "$40$ metros"
+    correctAnswer: 1,
     difficulty: "hard",
     estimatedTime: 120,
   },
@@ -104,7 +99,6 @@ const questions: Question[] = [
   },
 ];
 
-// Remove the prop from the component definition
 const QuestionsPage = () => {
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [showFeedback, setShowFeedback] = useState(false);
@@ -115,7 +109,7 @@ const QuestionsPage = () => {
   const [progress, setProgress] = useState(0);
   const [showInfoPanel, setShowInfoPanel] = useState(true);
   const notification = useNotification();
-  const { toggleSidebar } = useSidebar(); // Get toggle function from context
+  const { toggleSidebar } = useSidebar();
 
   const question = questions[currentQuestionIndex];
 
@@ -183,15 +177,13 @@ const QuestionsPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-zinc-950 to-zinc-900 text-white">
-      {/* Header Section */}
       <header className="fixed top-0 left-0 right-0 z-10 backdrop-blur-xl bg-zinc-900/40 border-b border-zinc-800/50">
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
-            {/* Sidebar Toggle Button */}
             <Button
               variant="ghost"
               size="icon"
-              onClick={toggleSidebar} // Use toggleSidebar from context
+              onClick={toggleSidebar}
               className="text-zinc-400 hover:text-white hover:bg-zinc-800/50 transition-all duration-200"
               aria-label="Toggle Sidebar"
             >
@@ -202,7 +194,6 @@ const QuestionsPage = () => {
               Questões
             </h1>
 
-            {/* Right side controls */}
             <div className="flex items-center gap-6">
               <motion.div
                 className="flex items-center gap-2 bg-zinc-800/30 px-3 py-1.5 rounded-full"
@@ -239,10 +230,8 @@ const QuestionsPage = () => {
         </div>
       </header>
 
-      {/* Main Content - Increased top padding from pt-16 to pt-24 */}
       <main className="pt-24 pb-20 px-4 max-w-7xl mx-auto">
         <div className={`flex flex-col lg:flex-row gap-6 mt-6 ${!showInfoPanel ? 'justify-center' : ''}`}>
-          {/* Question Area */}
           <div className={`w-full ${showInfoPanel ? 'lg:w-2/3' : 'lg:w-3/4 max-w-3xl'}`}>
             <motion.div
               className="backdrop-blur-xl bg-zinc-900/40 border border-zinc-800/50 rounded-xl overflow-hidden shadow-lg"
@@ -250,7 +239,6 @@ const QuestionsPage = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
             >
-              {/* Question Header */}
               <div className="p-8 border-b border-zinc-800/50">
                 <div className="flex items-center justify-between mb-6">
                   <div className="flex items-center gap-3">
@@ -287,7 +275,6 @@ const QuestionsPage = () => {
                 </motion.h2>
               </div>
 
-              {/* Image Area */}
               {question.image && (
                 <motion.div
                   className="p-8 bg-zinc-950/50 flex justify-center"
@@ -299,7 +286,6 @@ const QuestionsPage = () => {
                 </motion.div>
               )}
 
-              {/* Options Area */}
               <div className="p-8">
                 <div className="space-y-3">
                   {question.options.map((option, index) => (
@@ -329,7 +315,6 @@ const QuestionsPage = () => {
                 </div>
               </div>
 
-              {/* Action Footer */}
               <div className="p-8 border-t border-zinc-800/50 flex justify-between items-center">
                 <Button variant="outline" onClick={handlePrevious} disabled={currentQuestionIndex === 0} className="text-zinc-300 border-zinc-700/50 hover:bg-zinc-800/50 transition-all duration-200">
                   <ArrowLeft className="h-4 w-4 mr-2" /> Anterior
@@ -360,7 +345,6 @@ const QuestionsPage = () => {
             </motion.div>
           </div>
 
-          {/* Info Panel */}
           {showInfoPanel && (
             <AnimatePresence mode="wait">
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="w-full lg:w-1/3 hidden lg:block">

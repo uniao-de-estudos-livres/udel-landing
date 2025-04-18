@@ -17,23 +17,18 @@ export const metadata: Metadata = {
     template: "%s | Udel",
   },
   description: "Transforme seus estudos em uma jornada emocionante! Nosso site combina aprendizado e gamificação, oferecendo desafios interativos, conquistas e recompensas para tornar o estudo mais motivador e eficiente. Explore conteúdos, suba de nível e domine novos conhecimentos de forma divertida!",
-  // Restore explicit icons definition, pointing to the file in the app directory
   icons: [
     {
       rel: 'icon',
-      url: "/icon.svg", // Next.js serves files from app dir at root
+      url: "/icon.svg", // Assumes icon.svg is in /app directory
       type: 'image/svg+xml'
     },
-    // Add other common icon links if needed (assuming files exist in /public or /app)
-    // { rel: 'apple-touch-icon', url: '/apple-icon.png' },
-    // { rel: 'shortcut icon', url: '/favicon.ico' },
   ],
   twitter: {
     title: "Udel - uma nova forma de estudar",
     description: "Transforme seus estudos em uma jornada emocionante! Nosso site combina aprendizado e gamificação, oferecendo desafios interativos, conquistas e recompensas para tornar o estudo mais motivador e eficiente. Explore conteúdos, suba de nível e domine novos conhecimentos de forma divertida!",
     creator: "@astahjmo",
-    // Image path relative to public folder (resolved against metadataBase)
-    images: ["/static/udel_-_natal.png"],
+    images: ["/static/udel_-_natal.png"], // Assumes image is in /public/static
     card: "summary_large_image"
   },
   openGraph: {
@@ -43,8 +38,7 @@ export const metadata: Metadata = {
     description: "Transforme seus estudos em uma jornada emocionante! Nosso site combina aprendizado e gamificação, oferecendo desafios interativos, conquistas e recompensas para tornar o estudo mais motivador e eficiente. Explore conteúdos, suba de nível e domine novos conhecimentos de forma divertida!",
     images: [
       {
-        // Image path relative to public folder (resolved against metadataBase)
-        url: "/static/udel_-_natal.png",
+        url: "/static/udel_-_natal.png", // Assumes image is in /public/static
       }
     ],
   },

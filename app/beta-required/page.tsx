@@ -1,31 +1,28 @@
 "use client";
 
-import { Button } from "@/components/ui/button"; // Corrected import path
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"; // Corrected import path
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { LockKeyhole, Home, GraduationCap, BookmarkPlus } from "lucide-react";
 import { motion } from "framer-motion";
-import { useNotification } from "@/hooks/use-notification"; // Corrected import path (assuming hooks dir)
-import { useRouter } from "next/navigation"; // Import useRouter
+import { useNotification } from "@/hooks/use-notification";
+import { useRouter } from "next/navigation";
 
 const BetaRequiredPage = () => {
   const { success } = useNotification();
-  const router = useRouter(); // Initialize router
+  const router = useRouter();
 
   const handleWishlistSignup = () => {
     // TODO: Implement actual logic to add user to a waitlist/interest list
-    // This might involve an API call.
     console.log("User wants to join the beta test list.");
     success('Lista de Espera Beta', 'Seu interesse foi registrado! Entraremos em contato.');
   };
 
   const handleGoToPublicArea = () => {
-    // Redirect to the main landing page or another public route
     router.push("/");
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-zinc-950 to-zinc-900 text-white flex items-center justify-center">
-      {/* Removed pt-16 from main as this page likely doesn't use the dashboard header */}
       <main className="pb-20 px-4 max-w-7xl mx-auto flex items-center justify-center">
         <motion.div
           className="w-full max-w-md backdrop-blur-xl bg-zinc-900/40 border border-zinc-800/50 rounded-xl overflow-hidden shadow-lg"
@@ -36,7 +33,6 @@ const BetaRequiredPage = () => {
           <CardHeader className="text-center pb-4 border-b border-zinc-800/50 p-8">
             <div className="flex justify-center mb-6">
               <div className="relative">
-                {/* Using GraduationCap as placeholder, adjust if needed */}
                 <GraduationCap className="h-16 w-16 text-zinc-700/20" />
                 <LockKeyhole className="h-8 w-8 text-purple-500 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
               </div>
@@ -72,7 +68,7 @@ const BetaRequiredPage = () => {
             <div className="flex flex-col gap-3">
               <Button
                 onClick={handleWishlistSignup}
-                variant="secondary" // Consider if this variant exists or use default/custom
+                variant="secondary"
                 className="w-full bg-purple-600 hover:bg-purple-700 text-white shadow-lg shadow-purple-500/20 transition-all duration-200"
               >
                 <BookmarkPlus className="mr-2 h-4 w-4" /> Entrar na Lista de Espera
@@ -101,4 +97,4 @@ const BetaRequiredPage = () => {
   )
 }
 
-export default BetaRequiredPage; // Changed export name
+export default BetaRequiredPage;
