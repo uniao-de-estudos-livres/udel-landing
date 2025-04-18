@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Define the radius variable used in tailwind.config.ts */
+    --radius: 0.5rem;
+
+    /* You might have other variables here like --background, --foreground, etc. */
+    /* Ensure they are also defined if used */
+  }
+
+  /* Optional: Define for dark mode if needed, though usually :root is sufficient */
+  /* .dark { */
+  /*   --radius: 0.5rem; */
+  /* } */
+}
+
+@layer utilities {
+  .animate-border-glow {
+    @apply relative;
+    &::after {
+      content: "";
+      @apply absolute inset-0 rounded-full bg-gradient-to-r from-purple-600 via-pink-500 to-purple-600;
+      animation: border-glow 2s linear infinite;
+      z-index: -1;
+      filter: blur(4px);
+    }
+  }
+
+  .animate-pulse-border {
+    @apply relative;
+    &::after {
+      content: "";
+      @apply absolute inset-0 rounded-full border-2 border-current;
+      animation: pulse-border 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+  }
+
+  @keyframes border-glow {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes pulse-border {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.5;
+      transform: scale(1.05);
+    }
+  }
+}
