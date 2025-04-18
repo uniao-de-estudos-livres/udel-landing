@@ -5,8 +5,6 @@ import { Facebook, Twitter, Instagram, Linkedin, Github } from "lucide-react"
 export function Footer() {
   const discordUrl = "https://discord.gg/NUtQEtuW";
 
-  const discordUrl = "https://discord.gg/NUtQEtuW";
-
   return (
     <footer className="bg-black border-t border-zinc-800 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -96,12 +94,6 @@ export function Footer() {
                       {link.name}
                     </Link>
                   </li>
-              ].filter(Boolean).map((link, index) => ( // filter(Boolean) para remover nulos se comentar itens
-                  <li key={link.name}> {/* Use link.name for key */}
-                    <Link href={link.href} className="text-zinc-400 hover:text-purple-400 transition-colors text-sm" target={link.name === 'Discord' ? '_blank' : undefined} rel={link.name === 'Discord' ? 'noopener noreferrer' : undefined}>
-                      {link.name}
-                    </Link>
-                  </li>
               ))}
             </ul>
           </div>
@@ -115,7 +107,6 @@ export function Footer() {
             <Link href="#" className="text-zinc-500 hover:text-purple-400 text-sm transition-colors">
               Termos de Uso
             </Link>
-            <Link href="/privacy" className="text-zinc-500 hover:text-purple-400 text-sm transition-colors">
             <Link href="/privacy" className="text-zinc-500 hover:text-purple-400 text-sm transition-colors">
               Política de Privacidade
             </Link>
