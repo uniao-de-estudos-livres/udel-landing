@@ -5,13 +5,11 @@ import { motion } from "framer-motion"
 import { Heart } from "lucide-react"
 import { AuthService } from "@/services/auth-service";
 import { Skeleton } from "@/components/ui/skeleton";
+// Import interface from new location
+import type { SupporterData } from "@/interfaces/supporter";
 
-interface SupporterData {
-    id: string;
-    name: string;
-    avatar_url?: string | null;
-    contribution_date: string;
-}
+// Remove inline interface definition
+// interface SupporterData { ... }
 
 export function TopDonors() {
   const [supporters, setSupporters] = useState<SupporterData[]>([]);
@@ -23,7 +21,10 @@ export function TopDonors() {
       setIsLoading(true);
       setError(null);
       try {
-        const data = await AuthService.getSupporters(10); // Fetch top 10
+        // Removed argument from getSupporters call
+        const data = await AuthService.getSupporters();
+        // If limiting is needed, it should be done here or on the backend
+        // Example: setSupporters(data.slice(0, 10));
         setSupporters(data);
       } catch (err) {
         console.error("Failed to fetch supporters:", err);

@@ -7,12 +7,11 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { AuthService } from "@/services/auth-service";
 import { Skeleton } from "@/components/ui/skeleton";
+// Import interface from new location
+import type { DonationStats } from "@/interfaces/donations/stats";
 
-interface DonationStats {
-    students_benefited?: number | null;
-    monthly_donors?: number | null;
-    transparency_description?: string | null;
-}
+// Remove inline interface definition
+// interface DonationStats { ... }
 
 export function DonationCTA() {
   const [stats, setStats] = useState<DonationStats | null>(null);
@@ -24,10 +23,12 @@ export function DonationCTA() {
       setIsLoadingStats(true);
       setStatsError(null);
       try {
+        // Removed argument from getDonationStats call
         const data = await AuthService.getDonationStats();
         if (data) {
           setStats(data);
         } else {
+          // This case might not be reachable if getDonationStats throws on error
           setStatsError("Não foi possível carregar as estatísticas.");
         }
       } catch (err) {

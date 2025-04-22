@@ -39,7 +39,7 @@ export function FeatureDevelopmentDialog({
   const [emailError, setEmailError] = useState<string | null>(null);
   const notification = useNotification();
   const { captchaRef, executeCaptcha, resetCaptcha } = useCaptcha();
-  const [hCaptchaToken, setHCaptchaToken] = useState<string | null>(null);
+  const [hCaptchaToken, setHCaptchaToken] = useState<string | null>(null); // Keep hCaptcha state if needed for UI logic
 
   const onHCaptchaVerify = (token: string) => setHCaptchaToken(token);
   const onHCaptchaExpire = () => setHCaptchaToken(null);
@@ -56,6 +56,7 @@ export function FeatureDevelopmentDialog({
       return;
     }
 
+    // Keep hCaptcha check for UI button state, even if not sent to backend
     if (!hCaptchaToken) {
         notification.error("Verificação necessária", "Por favor, complete a verificação de segurança.");
         return;
@@ -63,7 +64,8 @@ export function FeatureDevelopmentDialog({
 
     setIsSubmitting(true);
     try {
-      await AuthService.addToWaitlist(waitlistEmail, hCaptchaToken);
+      // Call addToWaitlist with only the email argument
+      await AuthService.addToWaitlist(waitlistEmail);
 
       notification.success("Inscrição Recebida!", "Avisaremos você quando a funcionalidade estiver disponível.");
       setWaitlistEmail("");
@@ -71,13 +73,14 @@ export function FeatureDevelopmentDialog({
       setHCaptchaToken(null);
     } catch (error: any) {
       console.error("Failed to add to waitlist:", error);
-      resetCaptcha();
+      resetCaptcha(); // Reset captcha on error too
       setHCaptchaToken(null);
       const errorMessage = error.response?.data?.detail || error.message || "Não foi possível adicionar à lista. Tente novamente.";
       if (typeof errorMessage === 'string' && errorMessage.toLowerCase().includes("already on waitlist")) {
            notification.info("Já Inscrito", "Este email já está na nossa lista de espera!");
            setWaitlistEmail("");
       } else if (error.response?.status === 400 && typeof errorMessage === 'string' && errorMessage.toLowerCase().includes("hcaptcha")) {
+           // This error might not occur now if backend doesn't check captcha for waitlist
            notification.error("Erro de Verificação", "Falha na verificação hCaptcha. Tente novamente.");
       } else {
            notification.error("Erro", errorMessage);
@@ -139,7 +142,7 @@ export function FeatureDevelopmentDialog({
            </div>
            <Button
              onClick={handleWaitlistSubmit}
-             disabled={isSubmitting || !waitlistEmail || !hCaptchaToken}
+             disabled={isSubmitting || !waitlistEmail || !hCaptchaToken} // Keep hCaptcha check for button state
              className="w-full bg-purple-600 hover:bg-purple-700"
            >
              {isSubmitting ? <Loader2 className="h-4 w-4 animate-spin" /> : <> <Send className="mr-2 h-4 w-4" /> Me avise! </>}

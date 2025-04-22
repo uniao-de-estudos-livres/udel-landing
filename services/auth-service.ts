@@ -1,161 +1,143 @@
-import { api } from "@/services/api"
-import type { LoginFormData, SignupFormData, ResetPasswordFormData } from "@/lib/schemas/auth"
-import { MockAuthService } from "@/lib/mock-auth-service";
+import { api, setAuthToken, clearAuthToken } from "./api"; // Import api instance
+import type { AxiosResponse } from "axios";
+import type { LoginFormData } from "@/lib/schemas/auth"; // Assuming SigninData corresponds to LoginFormData
+import type { SignupCompleteData } from "@/interfaces/auth/signup";
+import type { SupporterData } from "@/interfaces/supporter"; // Corrected import name
+import type { DonationStats } from "@/interfaces/donations/stats";
+import type { ContactFormData } from "@/interfaces/contact"; // Assuming ContactData corresponds to ContactFormData
 
-interface SignupCompleteData extends Omit<SignupFormData, 'verificationCode' | 'confirmPassword'> {
-  verification_proof_token: string;
-  hcaptcha_token: string | null;
+// Define expected response types more explicitly
+interface AuthResponse {
+    auth_token: string;
+    token_type: string;
 }
 
-interface SupporterData {
-    id: string;
-    name: string;
-    avatar_url?: string | null;
-    contribution_date: string;
-}
-
-interface DonationStats {
-    students_benefited?: number | null;
-    monthly_donors?: number | null;
-    transparency_description?: string | null;
-}
-
-interface ContactFormData {
-    name: string;
-    email: string;
-    subject: string;
+// Updated VerificationResponse to match backend ApiResponse structure
+// for the /signup/code endpoint success case.
+interface VerificationResponse {
+    status: number;
     message: string;
+    data: {
+        verification_proof: string; // Expect the proof token inside data
+    };
+}
+
+// Define missing payload types based on usage/backend expectations
+// (Could be moved to dedicated interface files later)
+interface SignupEmailData {
+    email: string;
+    token: string | null; // hCaptcha token
+}
+
+interface SignupVerificationData {
+    email: string;
+    code: string;
+}
+
+interface WaitlistData {
+    email: string;
+}
+
+// Use LoginFormData from schemas as SigninData, but add hcaptcha_token for payload
+interface SigninPayload extends LoginFormData {
+    hcaptcha_token?: string | null;
+}
+
+// Type for the actual data sent to the /signin endpoint (matching backend DTO)
+interface BackendSigninRequest {
+    method?: "classic"; // Explicitly classic for this case
+    data: SigninPayload;
 }
 
 
-export const AuthService = {
-  async login(data: LoginFormData, captchaToken: string | null) {
-    const response = await api.post("/auth/signin/", {
-      method: "classic",
-      data: {
-        email: data.email,
-        password: data.password,
-        hcaptcha_token: captchaToken
-      }
-    });
-    if (response.data.access_token) {
-      if (typeof window !== "undefined") {
-         localStorage.setItem("auth_token", response.data.access_token);
-      }
-    } else {
-       console.error("Login API call succeeded but access_token missing in response:", response.data);
-       throw new Error("Token de autenticação não recebido do servidor.");
+export class AuthService {
+
+    // Login using email/password
+    static async signin(data: SigninPayload): Promise<AuthResponse> {
+        // Encapsulate the login data within a 'data' field as expected by the backend
+        const requestPayload: BackendSigninRequest = {
+            method: "classic", // Specify the method
+            data: data
+        };
+        console.log("AuthService: Sending signin payload:", requestPayload); // Log payload
+        const response: AxiosResponse<AuthResponse> = await api.post("/auth/signin", requestPayload);
+        // Token setting is handled by interceptor on successful response
+        return response.data;
     }
-    return response.data;
-  },
 
-  async submitEmailStep(email: string, hcaptchaToken: string | null) {
-    const response = await api.post("/auth/signin/email", { email: email, token: hcaptchaToken });
-    return response.data;
-  },
-  async submitVerificationCode(email: string, code: string) {
-    const response = await api.post("/auth/signin/code", { email: email, code: code });
-    return response.data; // Expects { data: { verification_proof: "..." } }
-  },
-  async completeSignup(data: SignupCompleteData) {
-    const response = await api.post("/auth/signup/complete", data);
-    return response.data;
-  },
-
-  async getSupporters(limit: number = 50): Promise<SupporterData[]> {
-    try {
-        const response = await api.get(`/supporters/?limit=${limit}`);
-        if (response.data?.status === 200 && Array.isArray(response.data.data)) {
-            return response.data.data;
-        } else {
-            console.error("Unexpected response format for supporters:", response.data);
-            return [];
-        }
-    } catch (error) {
-        console.error("Failed to fetch supporters:", error);
-        throw error;
+    // Signup Step 1: Submit Email
+    static async submitEmailStep(email: string, hcaptchaToken: string | null): Promise<void> {
+        const payload: SignupEmailData = { email, token: hcaptchaToken };
+        // URL corrected based on backend router prefix
+        await api.post("/auth/signup/email", payload);
     }
-  },
 
-  async getDonationStats(): Promise<DonationStats | null> {
-    try {
-        const response = await api.get(`/donations/stats`);
-        if (response.data?.status === 200 && response.data.data) {
-            return response.data.data;
-        } else {
-            console.error("Unexpected response format for donation stats:", response.data);
-            return null;
-        }
-    } catch (error) {
-        console.error("Failed to fetch donation stats:", error);
-        return null;
+    // Signup Step 2: Submit Verification Code
+    static async submitVerificationCode(email: string, code: string): Promise<AxiosResponse<VerificationResponse>> {
+        const payload: SignupVerificationData = { email, code };
+        // URL corrected based on backend router prefix
+        // The generic type for api.post now uses the updated VerificationResponse
+        return await api.post<VerificationResponse>("/auth/signup/code", payload);
     }
-  },
 
-  async addToWaitlist(email: string, hcaptchaToken: string): Promise<any> {
-      const response = await api.post("/waitlist/", { email, hcaptcha_token: hcaptchaToken });
-      if (response.status === 201 && response.data?.status === 201) {
-          return response.data;
-      } else {
-          const errorDetail = response.data?.detail || "Failed to add to waitlist";
-          console.error("Add to waitlist failed:", errorDetail);
-          throw new Error(errorDetail);
-      }
-  },
-
-  async sendContactForm(data: ContactFormData): Promise<any> {
-      const response = await api.post("/contact/", data);
-      if (response.status === 200 && response.data?.status === 200) {
-          return response.data;
-      } else {
-          const errorDetail = response.data?.detail || "Failed to send contact message";
-          console.error("Send contact form failed:", errorDetail);
-          throw new Error(errorDetail);
-      }
-  },
-
-  async verifyEmail(token: string) {
-    const response = await api.post("/auth/verify-email", { token })
-    return response.data
-  },
-  async forgotPassword(email: string, captchaToken: string) {
-    const response = await api.post("/auth/forgot-password", { email, captchaToken })
-    return response.data
-  },
-  async resetPassword(data: ResetPasswordFormData) {
-    const response = await api.post("/auth/reset-password", data)
-    return response.data
-  },
-  async logout() {
-    try {
-        await api.post("/auth/logout");
-    } catch (error) {
-        console.error("Logout API call failed:", error);
-    } finally {
-        if (typeof window !== "undefined") {
-            localStorage.removeItem("auth_token");
-            localStorage.removeItem("mock_auth_token");
-        }
+    // Signup Step 3: Complete Signup
+    static async completeSignup(data: SignupCompleteData): Promise<AuthResponse> {
+        const response: AxiosResponse<AuthResponse> = await api.post("/auth/signup/complete", data);
+        // Token setting is handled by interceptor on successful response
+        return response.data;
     }
-    return { success: true };
-  },
-  isAuthenticated() {
-    if (typeof window === "undefined") return false;
-    return !!localStorage.getItem("auth_token") || !!localStorage.getItem("mock_auth_token");
-  },
-  async getCurrentUser() {
-    if (typeof window !== "undefined" && localStorage.getItem("auth_token")) {
+
+    // Logout: Invalidate refresh token on backend
+    static async logout(): Promise<void> {
         try {
-            const response = await api.get("/users/me");
-            return response.data?.data || null;
+            await api.post("/auth/logout");
         } catch (error) {
-             console.error("Failed to fetch current user:", error);
-             return null;
+            console.error("Logout failed:", error);
+        } finally {
+            clearAuthToken(); // Always clear local token state
         }
     }
-    else if (typeof window !== "undefined" && localStorage.getItem("mock_auth_token")) {
-        return MockAuthService.checkAuth();
+
+    // Attempt token refresh using HttpOnly cookie
+    static async attemptRefresh(): Promise<AuthResponse> {
+        console.log("AuthService: Attempting token refresh via /auth/refresh");
+        const response: AxiosResponse<AuthResponse> = await api.post("/auth/refresh", {});
+        if (!response.data?.auth_token) {
+            throw new Error("Refresh endpoint did not return auth_token.");
+        }
+        // Interceptor already sets the token via setAuthToken on success
+        console.log("AuthService: Refresh successful, received new auth_token.");
+        return response.data;
     }
-    return null;
-  },
+
+    // --- Restored Missing Methods ---
+
+    // Add email to waitlist
+    static async addToWaitlist(email: string): Promise<void> {
+        const payload: WaitlistData = { email };
+        await api.post("/waitlist", payload);
+    }
+
+    // Get donation statistics
+    static async getDonationStats(): Promise<DonationStats> {
+        const response: AxiosResponse<{ data: DonationStats }> = await api.get("/donation_stats");
+        return response.data.data; // Assuming data is nested under 'data' key
+    }
+
+    // Send contact form data
+    static async sendContactForm(data: ContactFormData): Promise<void> {
+        await api.post("/contact", data);
+    }
+
+    // Get list of supporters
+    static async getSupporters(): Promise<SupporterData[]> { // Corrected return type
+         const response: AxiosResponse<{ data: SupporterData[] }> = await api.get("/supporters"); // Corrected expected data type
+         return response.data.data; // Assuming data is nested under 'data' key
+    }
+
+     // Method alias for login form compatibility (calls signin)
+     // The 'data' parameter here is SigninPayload (includes hcaptcha_token)
+     static async login(data: SigninPayload): Promise<AuthResponse> {
+        return this.signin(data);
+    }
 }

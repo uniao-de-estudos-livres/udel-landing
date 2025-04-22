@@ -10,10 +10,9 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="col-span-1 md:col-span-1 flex flex-col items-center text-center">
-            <Link href="/" className="w-24 h-24 mb-4 block" aria-label="Página Inicial">
+            {/* Removed duplicate Link wrapper */}
             <Link href="/" className="w-24 h-24 mb-4 block" aria-label="Página Inicial">
               <Logo variant="white" />
-            </Link>
             </Link>
             <p className="text-zinc-400 mt-4 text-sm">
               Unindo Desenvolvimento e Evolução na Aprendizagem
@@ -43,10 +42,8 @@ export function Footer() {
             <ul className="space-y-2">
               {[
                 { name: "Recursos", href: "#" },
-                // { name: "Questões", href: "/questions" }, // Link desativado
-                // { name: "Estatísticas", href: "/statistics" }, // Link desativado
-                // { name: "Questões", href: "/questions" }, // Link desativado
-                // { name: "Estatísticas", href: "/statistics" }, // Link desativado
+                // { name: "Questões", href: "/questions" },
+                // { name: "Estatísticas", href: "/statistics" },
                 { name: "Clubes", href: "#" },
                 { name: "Eventos", href: "#" },
               ].map((link, index) => (
@@ -85,11 +82,10 @@ export function Footer() {
                 { name: "Discord", href: discordUrl },
                 { name: "Blog", href: "#" },
                 { name: "Contribuir", href: "#" },
-                // { name: "Doações", href: "/donations" }, // Link desativado
-                // { name: "Doações", href: "/donations" }, // Link desativado
+                // { name: "Doações", href: "/donations" },
                 { name: "Parceiros", href: "#" },
-              ].filter(Boolean).map((link, index) => ( // filter(Boolean) para remover nulos se comentar itens
-                  <li key={link.name}> {/* Use link.name for key */}
+              ].filter(Boolean).map((link) => (
+                  <li key={link.name}>
                     <Link href={link.href} className="text-zinc-400 hover:text-purple-400 transition-colors text-sm" target={link.name === 'Discord' ? '_blank' : undefined} rel={link.name === 'Discord' ? 'noopener noreferrer' : undefined}>
                       {link.name}
                     </Link>

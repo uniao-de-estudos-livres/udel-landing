@@ -1,40 +1,35 @@
 "use client"
 
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react"
+import { createContext, useContext, type ReactNode, useCallback } from "react"
 import { useRouter } from "next/navigation"
 import { useNotification } from "@/hooks/use-notification"
-import { api } from "@/lib/api"
-// Remove mock imports
-// import { MockAuthService, mockConfig } from "@/lib/mock-auth-service"
+// Import setAuthToken and clearAuthToken from api.ts
+import { setAuthToken, clearAuthToken } from "@/services/api"
+import { MockAuthService } from "@/interfaces/mock/auth";
+import { mockConfig } from "@/interfaces/mock/config";
+import type { User } from "@/interfaces/auth/user";
 import { jwtDecode } from 'jwt-decode';
 
-interface User {
-  id?: string;
-  name?: string;
-  email: string;
-  avatar?: string;
-  features?: string[];
-}
+const PLATFORM_URL = process.env.NEXT_PUBLIC_PLATFORM_URL || "http://localhost:3001";
 
+// Context provides only redirect function and toast function
 interface AuthContextType {
-  user: User | null
-  isLoading: boolean
-  isAuthenticated: boolean
-  login: (authToken: string) => Promise<void>;
-  logout: () => Promise<void>
+  // Parameter name changed to reflect it's the auth_token
+  loginAndRedirect: (authToken: string) => Promise<void>;
   showFeatureDisabledToast: (featureName: string) => void;
-  hasAccess: (featureName: string) => boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+// Decode function might still be useful if beta check is done before redirect
 const decodeAuthToken = (token: string): User | null => {
     try {
         const decoded: any = jwtDecode(token);
+        // Ensure the structure matches the User interface
         return {
-            id: decoded.user_id,
+            id: decoded.user_id || decoded.sub, // Adjust based on actual token payload
             email: decoded.sub,
-            name: decoded.full_name,
+            name: decoded.full_name || "Usuário", // Provide default if name is missing
             features: decoded.features || [],
         };
     } catch (error) {
@@ -43,122 +38,76 @@ const decodeAuthToken = (token: string): User | null => {
     }
 };
 
+// Internal helper for access check
+const hasAccessInternal = (currentUser: User | null, featureName: string): boolean => {
+    if (!currentUser?.features) return false;
+    return currentUser.features.includes(featureName);
+};
+
+
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
+  // Remove all state management related to user session
   const router = useRouter()
   const notification = useNotification()
 
-  const isAuthenticated = !!user
+  // Remove checkAuth useEffect entirely
 
-  useEffect(() => {
-    const checkAuth = async () => {
-      setIsLoading(true);
-      try {
-        // Remove mock check
-        // if (mockConfig.enabled) { ... }
-
-        const token = localStorage.getItem("auth_token");
-        if (token) {
-          const decodedUser = decodeAuthToken(token);
-          if (decodedUser) {
-             // Optional: Verify token validity with backend
-             setUser(decodedUser);
-          } else {
-             localStorage.removeItem("auth_token");
-             setUser(null);
-          }
-        } else {
-            setUser(null);
-        }
-      } catch (error) {
-        console.error("Erro ao verificar autenticação:", error);
-        localStorage.removeItem("auth_token");
-        setUser(null);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    checkAuth();
-  }, []);
-
-  const login = async (authToken: string) => {
-    setIsLoading(true);
+  // Parameter name changed to authToken for clarity
+  const loginAndRedirect = useCallback(async (authToken: string) => {
     try {
-      localStorage.setItem("auth_token", authToken);
+      // 1. Save the token using setAuthToken (which now saves to localStorage)
+      setAuthToken(authToken);
+      console.log("AuthProvider: Auth token saved.");
+
+      // 2. Decode the token for checks
       const decodedUser = decodeAuthToken(authToken);
+
       if (!decodedUser) {
+          // If decoding fails, clear the potentially invalid token
+          clearAuthToken();
           throw new Error("Falha ao decodificar token recebido.");
       }
-      setUser(decodedUser);
 
+      // 3. Perform pre-redirect checks
       if (!hasAccessInternal(decodedUser, 'beta_access')) {
           notification.warning("Acesso Beta Necessário", "Sua conta ainda não tem acesso à fase Beta.");
+          // Don't clear token here, user might still be logged in but lack beta access
           router.push("/beta-required");
-      } else {
-          notification.success("Login realizado", "Você foi autenticado com sucesso!");
+          return;
       }
+
+      // 4. Redirect to the main platform dashboard
+      // The token is already saved in localStorage by setAuthToken
+      notification.success("Login realizado", "Redirecionando para a plataforma...");
+      const targetUrl = `${PLATFORM_URL}/dashboard`;
+      window.location.href = targetUrl;
+
     } catch (error: any) {
-        console.error("Erro no processo de login do AuthProvider:", error);
-        localStorage.removeItem("auth_token");
-        setUser(null);
+        console.error("Erro no processo de login/redirect:", error);
         notification.error("Erro de Login", error.message || "Não foi possível processar o login.");
-    } finally {
-        setIsLoading(false);
+        // Clear token on error during this process
+        clearAuthToken();
     }
-  };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [notification, router]);
 
-  const logoutInternal = async () => {
-     try {
-        // Remove mock check
-        const token = localStorage.getItem("auth_token");
-        if (token) {
-            await api.post("/auth/logout");
-        }
-     } catch (error) {
-         console.error("Logout API call failed:", error);
-     } finally {
-         localStorage.removeItem("auth_token");
-         // Remove mock token clear
-         // localStorage.removeItem("mock_auth_token");
-         setUser(null);
-     }
-  };
+  const showFeatureDisabledToast = useCallback((featureName: string) => {
+    if (mockConfig.enabled) {
+        MockAuthService.showFeatureDisabledToast(featureName);
+    } else {
+        notification.info(
+          "Feature Desativada",
+          `A funcionalidade "${featureName}" está temporariamente desativada.`,
+        );
+    }
+  }, [notification]);
 
-  const logout = async () => {
-    setIsLoading(true);
-    await logoutInternal();
-    notification.success("Logout realizado", "Você foi desconectado com sucesso!");
-    router.push("/login");
-    setIsLoading(false);
-  };
-
-  const hasAccessInternal = (currentUser: User | null, featureName: string): boolean => {
-      if (!currentUser?.features) return false;
-      return currentUser.features.includes(featureName);
-  };
-
-  const hasAccess = (featureName: string): boolean => {
-      return hasAccessInternal(user, featureName);
-  };
-
-  const showFeatureDisabledToast = (featureName: string) => {
-    notification.info(
-      "Feature Desativada",
-      `A funcionalidade "${featureName}" está temporariamente desativada para fins de desenvolvimento.`,
-    );
-  };
-
+  // Provide simplified context value
   return (
     <AuthContext.Provider
       value={{
-        user,
-        isLoading,
-        isAuthenticated,
-        login,
-        logout,
+        loginAndRedirect,
         showFeatureDisabledToast,
-        hasAccess,
       }}
     >
       {children}

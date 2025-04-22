@@ -7,12 +7,14 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button"
 import { Logo } from "@/components/ui/logo"
 import { DiscordRedirectDialog } from "@/components/ui/discord-redirect-dialog"
-import { FeatureDevelopmentDialog } from "@/components/ui/feature-development-dialog"
+// Remove FeatureDevelopmentDialog import as it's no longer used here
+// import { FeatureDevelopmentDialog } from "@/components/ui/feature-development-dialog"
 import { useNotification } from "@/hooks/use-notification"
 
 export function HeroSection() {
   const [isDiscordDialogOpen, setIsDiscordDialogOpen] = useState(false)
-  const [isFeatureDialogOpen, setIsFeatureDialogOpen] = useState(false)
+  // Remove state for feature dialog
+  // const [isFeatureDialogOpen, setIsFeatureDialogOpen] = useState(false)
   const router = useRouter();
   const notification = useNotification()
   const discordUrl = "https://discord.gg/NUtQEtuW"
@@ -22,8 +24,9 @@ export function HeroSection() {
     setIsDiscordDialogOpen(false)
   }
 
+  // Change handleStartNowClick to navigate to signup
   const handleStartNowClick = () => {
-    setIsFeatureDialogOpen(true);
+    router.push("/signup"); // Navigate to signup page
   }
 
   return (
@@ -41,6 +44,7 @@ export function HeroSection() {
               um aprendizado mais eficiente e envolvente.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
+              {/* Button now links to signup */}
               <Button
                 className="w-full sm:w-auto bg-purple-600 text-white px-8 py-3 rounded-lg font-semibold flex items-center justify-center gap-2 hover:bg-purple-700 transition-colors shadow-[0_0_15px_rgba(128,0,128,0.3)] hover:shadow-[0_0_30px_rgba(128,0,128,0.5)]"
                 onClick={handleStartNowClick}
@@ -73,15 +77,10 @@ export function HeroSection() {
         isOpen={isDiscordDialogOpen}
         onOpenChange={setIsDiscordDialogOpen}
         onConfirm={handleDiscordRedirect}
-        discordUrl={discordUrl} // Pass updated URL
+        discordUrl={discordUrl}
       />
 
-      <FeatureDevelopmentDialog
-        isOpen={isFeatureDialogOpen}
-        onOpenChange={setIsFeatureDialogOpen}
-        onClose={() => setIsFeatureDialogOpen(false)}
-        featureName="O cadastro e login de usuários"
-      />
+      {/* Feature development dialog removed */}
     </section>
   )
 }

@@ -9,13 +9,11 @@ import { Label } from "@/components/ui/label";
 import { Mail, MessageSquare, Send, Copy, Loader2 } from "lucide-react";
 import { useNotification } from "@/hooks/use-notification";
 import { AuthService } from "@/services/auth-service";
+// Import interface from new location
+import type { ContactFormData } from "@/interfaces/contact";
 
-interface ContactFormData {
-    name: string;
-    email: string;
-    subject: string;
-    message: string;
-}
+// Remove inline interface definition
+// interface ContactFormData { ... }
 
 export default function ContactPage() {
   const notification = useNotification();
